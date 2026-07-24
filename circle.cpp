@@ -10,4 +10,6 @@ circumference=2*3.14*r;
 cout<<"area of circle="<<area<<endl;
 cout<<"circumference of circle="<<circumference<<endl;
 return 0;
+
+
 }
