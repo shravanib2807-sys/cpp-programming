@@ -1,64 +1,47 @@
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 int main()
 {
-    string data;
-    cout << "Enter received code: ";
-    cin >> data;
+    string stuffed;
 
-    int n = data.length();
-    int code[20];
+        cout << "Enter Stuffed Code Word: ";
+            cin >> stuffed;
 
-    // Store bits
-    for (int i = 1; i <= n; i++)
-        code[i] = data[n - i] - '0';
+                string destuffed = "";
+                    int consecutiveOnes = 0;
 
-    int error = 0;
+                        for (int i = 0; i < stuffed.length(); i++)
+                            {
+                                    char bit = stuffed[i];
 
-    // Check parity bits
-    for (int p = 1; p <= n; p = p * 2)
-    {
-        int parity = 0;
+                                            destuffed += bit;
 
-        for (int i = 1; i <= n; i++)
-        {
-            if ((i & p) != 0)
-                parity = parity ^ code[i];
-        }
+                                                    if (bit == '1')
+                                                            {
+                                                                        consecutiveOnes++;
 
-        if (parity != 0)
-            error = error + p;
-    }
+                                                                                    // After five consecutive 1s, skip the stuffed 0
+                                                                                                if (consecutiveOnes == 5)
+                                                                                                            {
+                                                                                                                            if (i + 1 < stuffed.length() && stuffed[i + 1] == '0')
+                                                                                                                                            {
+                                                                                                                                                                i++;
+                                                                                                                                                                                }
 
-    cout << "\nError Position = " << error << endl;
+                                                                                                                                                                                                consecutiveOnes = 0;
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                            else
+                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                consecutiveOnes = 0;
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                            }
 
-    // Correct error
-    if (error != 0)
-    {
-        code[error] = code[error] ^ 1;
-        cout << "Error Corrected!" << endl;
-    }
-    else
-    {
-        cout << "No Error!" << endl;
-    }
+                                                                                                                                                                                                                                                                cout << "\nStuffed Code Word   : " << stuffed << endl;
+                                                                                                                                                                                                                                                                    cout << "Destuffed Code Word : " << destuffed << endl;
 
-    // Display corrected code
-    cout << "Corrected Code = ";
-    for (int i = n; i >= 1; i--)
-        cout << code[i];
-
-    // Display original data
-    cout << "\nOriginal Data = ";
-    for (int i = n; i >= 1; i--)
-    {
-        if ((i & (i - 1)) != 0)
-            cout << code[i];
-    }
-
-    cout << endl;
-
-    return 0;
-}
+                                                                                                                                                                                                                                                                        return 0;
+                                                                                                                                                                                                                                                                        }
