@@ -1,68 +1,42 @@
 #include <iostream>
-#include <string>
 using namespace std;
+
+class Complex
+{
+public:
+    int r, i;
+
+    void get()
+    {
+        cout << "Enter real and imaginary part: ";
+        cin >> r >> i;
+    }
+
+    void add(Complex c2)
+    {
+        cout << "Addition = " << r + c2.r << "+"
+             << i + c2.i << "i" << endl;
+    }
+
+    void sub(Complex c2)
+    {
+        cout << "Subtraction = " << r - c2.r << "+"
+             << i - c2.i << "i" << endl;
+    }
+};
 
 int main()
 {
-    string data;
-    cout << "Enter Data Word: ";
-    cin >> data;
+    Complex c1, c2;
 
-    int m = data.length();
-    int r = 0;
+    cout << "First complex number\n";
+    c1.get();
 
-    // Find redundant bits
-    while ((1 << r) < m + r + 1)
-        r++;
+    cout << "Second complex number\n";
+    c2.get();
 
-    int n = m + r;
-    int code[20] = {0};
-
-    // Put data bits
-    int j = 0;
-    for (int i = n; i >= 1; i--)
-    {
-        if ((i & (i - 1)) != 0)
-        {
-            code[i] = data[j] - '0';
-            j++;
-        }
-    }
-
-    // Calculate parity bits
-    for (int p = 1; p <= n; p = p * 2)
-    {
-        int parity = 0;
-
-        for (int i = 1; i <= n; i++)
-        {
-            if ((i & p) != 0)
-                parity = parity ^ code[i];
-        }
-
-        code[p] = parity;
-    }
-
-    // Display m, n and r
-    cout << "\nm = " << m << endl;
-    cout << "r = " << r << endl;
-    cout << "n = " << n << endl;
-
-    // Display redundant bits
-    cout << "\nRedundant Bits:\n";
-
-    for (int p = 1; p <= n; p = p * 2)
-    {
-        cout << "R" << p << " = " << code[p] << endl;
-    }
-
-    // Display code word
-    cout << "\nCode Word = ";
-
-    for (int i = n; i >= 1; i--)
-        cout << code[i];
-
-    cout << endl;
+    c1.add(c2);
+    c1.sub(c2);
 
     return 0;
 }
